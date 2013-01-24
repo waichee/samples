@@ -1,0 +1,39 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="TEST100000000000" author="Wai">
+        <createTable tableName="car">
+            <column name="price" type="varchar(50)"></column>
+            <column name="color" type="varchar(50)"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="TEST100000000001" author="Wai">
+        <createTable tableName="bike">
+            <column name="price" type="varchar(50)"></column>
+            <column name="color" type="varchar(50)"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="TEST100000000002" author="Wai">
+        <addColumn tableName="bike">
+            <column name="id" type="int"/>
+        </addColumn>
+        <addColumn tableName="car">
+            <column name="id" type="int"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="TEST100000000003" author="Wai">
+        <dropColumn tableName="bike" columnName="id" />
+        <dropColumn tableName="car" columnName="id" />
+        <addColumn tableName="bike">
+            <column name="id" type="decimal"/>
+        </addColumn>
+        <addColumn tableName="car">
+            <column name="id" type="decimal"/>
+        </addColumn>
+    </changeSet>
+
+
+</databaseChangeLog>
