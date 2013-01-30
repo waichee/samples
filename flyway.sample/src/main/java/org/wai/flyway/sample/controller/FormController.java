@@ -2,6 +2,7 @@ package org.wai.flyway.sample.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,15 +13,21 @@ import org.wai.flyway.sample.entity.Project;
 import org.wai.flyway.sample.service.EmployeeService;
 import org.wai.flyway.sample.service.ProjectService;
 
+import javax.inject.Inject;
+
 @Controller
 @RequestMapping("/form")
 public class FormController {
 
-    @Autowired
-    ProjectService projectService;
+    private final ProjectService projectService;
 
-    @Autowired
-    EmployeeService employeeService;
+    private final EmployeeService employeeService;
+
+    @Inject
+    public FormController(ProjectService projectService, EmployeeService employeeService) {
+        this.projectService = projectService;
+        this.employeeService = employeeService;
+    }
 
 
     @RequestMapping(method=RequestMethod.GET)

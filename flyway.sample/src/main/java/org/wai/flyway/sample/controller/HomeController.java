@@ -16,6 +16,7 @@ import org.wai.flyway.sample.service.AddressService;
 import org.wai.flyway.sample.service.EmployeeService;
 import org.wai.flyway.sample.service.ProjectService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 
@@ -23,36 +24,37 @@ import java.util.List;
 @RequestMapping("/home")
 public class HomeController {
 
-    @Autowired
-    private AddressService addressService;
+    private final AddressService addressService;
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectService projectService;
+
+
+    @Inject
+    public HomeController(ProjectService projectService, EmployeeService employeeService, AddressService addressService) {
+        this.projectService = projectService;
+        this.employeeService = employeeService;
+        this.addressService = addressService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllEntities() {
         final ModelAndView mav = new ModelAndView();
         mav.setViewName("home");
 
-        List<Address> addressList = addressService.findAllAddres();
+/*        List<Address> addressList = addressService.findAllAddres();
         List<AddressDto> addressDtos = Lists.newArrayList(
                 Iterables.transform(addressList, EntityToDtoConverter.addressToDtoFunction()));
 
         List<Project> projectList = projectService.findAllProject();
         List<ProjectDto> projectDtos = Lists.newArrayList(
-                Iterables.transform(projectList, EntityToDtoConverter.projectToDtoFunction()));
+                Iterables.transform(projectList, EntityToDtoConverter.projectToDtoFunction()));*/
 
-        mav.addObject("addressMap", addressDtos);
+        mav.addObject("addressMap", addressService.findAllAddres());
         mav.addObject("employeeMap", employeeService.findAllEmployee());
-        mav.addObject("projectMap", projectDtos);
+        mav.addObject("projectMap", projectService.findAllProject());
 
-        System.out.println("ProjectDtos size :" + projectDtos.size());
-        System.out.println("ProjectDtos size :" + mav.getModel().keySet());
-
-        System.out.println("Model Map size :" + mav.getModelMap().size());
         return mav;
     }
 

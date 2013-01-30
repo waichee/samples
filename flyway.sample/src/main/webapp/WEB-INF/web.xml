@@ -2,25 +2,20 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         id="WebApp_ID" version="2.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://java.sun.com/xml/ns/javaee">
-<display-name>Flyway Cayenne Sample Web Application</display-name>
+    <display-name>Flyway Cayenne Sample Web Application</display-name>
 
-<!--    &lt;!&ndash; The definition of the Root Spring Container shared by all Servlets and Filters &ndash;&gt;
+    <!--  The definition of the Root Spring Container shared by all Servlets and Filters -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/spring/root-context.xml</param-value>
     </context-param>
 
 
-    &lt;!&ndash; Creates the Spring Container shared by all Servlets and Filters &ndash;&gt;
+    <!--  Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>-->
+    </listener>
 
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/spring/servlet-context.xml</param-value>
-    </context-param>
 
     <!-- A servlet that dispatches requests to registered controllers -->
     <servlet>
