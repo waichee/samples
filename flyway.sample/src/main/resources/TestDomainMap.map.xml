@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
+	<property name="defaultPackage" value="org.wai.flyway.sample.entity"/>
+	<property name="defaultSchema" value="public"/>
+	<db-entity name="address" schema="public">
+		<db-attribute name="address" type="VARCHAR" />
+		<db-attribute name="country" type="VARCHAR" />
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="postcode" type="VARCHAR" />
+		<db-attribute name="state" type="VARCHAR" />
+	</db-entity>
+	<db-entity name="employee" schema="public">
+		<db-attribute name="address_id" type="BIGINT" />
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" />
+		<db-attribute name="position" type="VARCHAR" />
+		<db-attribute name="project_id" type="BIGINT"/>
+	</db-entity>
+	<db-entity name="project" schema="public">
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" />
+	</db-entity>
+	<obj-entity name="Address" className="org.wai.flyway.sample.entity.Address" dbEntityName="address">
+		<obj-attribute name="address" type="java.lang.String" db-attribute-path="address"/>
+		<obj-attribute name="country" type="java.lang.String" db-attribute-path="country"/>
+		<obj-attribute name="postcode" type="java.lang.String" db-attribute-path="postcode"/>
+		<obj-attribute name="state" type="java.lang.String" db-attribute-path="state"/>
+	</obj-entity>
+	<obj-entity name="Employee" className="org.wai.flyway.sample.entity.Employee" dbEntityName="employee">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="position" type="java.lang.String" db-attribute-path="position"/>
+	</obj-entity>
+	<obj-entity name="Project" className="org.wai.flyway.sample.entity.Project" dbEntityName="project" exclude-default-listeners="true">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<db-relationship name="employee" source="address" target="employee" toMany="false">
+		<db-attribute-pair source="id" target="address_id"/>
+	</db-relationship>
+	<db-relationship name="address" source="employee" target="address" toMany="false">
+		<db-attribute-pair source="address_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="project" source="employee" target="project" toMany="false">
+		<db-attribute-pair source="project_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="employee" source="project" target="employee" toMany="true">
+		<db-attribute-pair source="id" target="project_id"/>
+	</db-relationship>
+	<obj-relationship name="employee" source="Address" target="Employee" deleteRule="Nullify" db-relationship-path="employee"/>
+	<obj-relationship name="address" source="Employee" target="Address" deleteRule="Cascade" db-relationship-path="address"/>
+	<obj-relationship name="project" source="Employee" target="Project" deleteRule="Nullify" db-relationship-path="project"/>
+	<obj-relationship name="employee" source="Project" target="Employee" deleteRule="Deny" db-relationship-path="employee"/>
+</data-map>

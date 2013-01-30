@@ -1,0 +1,56 @@
+<web-app
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+        id="WebApp_ID" version="2.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee">
+<display-name>Flyway Cayenne Sample Web Application</display-name>
+
+<!--    &lt;!&ndash; The definition of the Root Spring Container shared by all Servlets and Filters &ndash;&gt;
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/spring/root-context.xml</param-value>
+    </context-param>
+
+
+    &lt;!&ndash; Creates the Spring Container shared by all Servlets and Filters &ndash;&gt;
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>-->
+
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/spring/servlet-context.xml</param-value>
+    </context-param>
+
+    <!-- A servlet that dispatches requests to registered controllers -->
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/spring/servlet-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Send all .html files to the Spring dispatcher servlet -->
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- This filter provides each request thread with a session-bound DataContext -->
+    <filter>
+        <filter-name>CayenneFilter</filter-name>
+        <filter-class>org.apache.cayenne.conf.WebApplicationContextFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CayenneFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
