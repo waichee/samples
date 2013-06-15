@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://org.wai.test/xml11demo"
+        xmlns:tns="http://org.wai.test/xml11demo"
+        elementFormDefault="qualified">
+
+    <complexType name="BookType">
+        <sequence>
+            <element name="title" type="string"></element>
+            <element name="author" type="string"></element>
+            <element name="isbn" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="BooksType">
+        <sequence>
+            <element name="book" type="tns:BookType"
+                     maxOccurs="unbounded" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <element name="books" type="tns:BooksType">
+
+    </element>
+</schema>

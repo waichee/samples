@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<books xmlns="http://org.wai.test/xml11demo">
+    <book>
+        <title>My book 1</title>
+        <author>Joe &#29; Jane</author>
+        <isbn>lalal1234</isbn>
+    </book>
+
+    <book>
+        <title>My book 2</title>
+        <author>Joe Mary Jane</author>
+        <isbn>isbn2</isbn>
+    </book>
+    <book>
+        <title>Door econ 2</title>
+        <author>JKelly </author>
+        <isbn>isbn3</isbn>
+    </book>
+
+</books>
